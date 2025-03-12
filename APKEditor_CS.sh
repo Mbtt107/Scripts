@@ -10,7 +10,6 @@ read -r app
 echo " "
 echo "Appname is: ${app}"
 echo " "
-echo "************************"
 
 xapkfilename="$app.xapk"
 
@@ -99,6 +98,8 @@ execute () {
     # Exit
     elif [ $command == "exit" ]; then
         exit
+    else
+        echo "Enter a command"
     fi
 }
 

@@ -1,7 +1,7 @@
 #!/bin/bash
 #
-# (c) Lutfi Akdag (aka Mbtt) - 2018
-# Auto-build Script
+# (c) Lutfi Akdag (aka Mbtt) - 2025
+# APKEditor Control Script
 #
 
 # Apk Handler
@@ -22,7 +22,7 @@ apkfilepath=$app'_decompile_xml'
 mergedapkfilepath=$app'_merged_decompile_xml'
 mandfapkfilepath=$app'_merged_refactored_decompile_xml'
 
-# Commands
+# Command Table
 echo "************************"
 echo " "
 echo "1) Decompile"
@@ -39,12 +39,11 @@ echo "6) Info"
 echo " "
 echo "************************"
 
-# Executes
+# Main
 execute () {
     read -r command
+    # Decompile
     if [ $command == "1" ]; then
-        # java -jar APKEditor.jar d -i $apkfilename
-
         if [ -e "$apkfilename" ]; then
             java -jar APKEditor.jar d -i $apkfilename
         elif [ ! -e "$apkfilename" ]; then
@@ -55,9 +54,8 @@ execute () {
         else
             echo "Uygulama bulunamadı..."
         fi
+    # Recompile
     elif [ $command == "2" ]; then
-        # java -jar APKEditor.jar b -i $apkfilepath
-
         if [ -d "$apkfilepath" ]; then
             java -jar APKEditor.jar b -i $apkfilepath
         elif [ ! -d "$apkfilepath" ]; then
@@ -68,11 +66,11 @@ execute () {
         else
             echo "Klasör bulunamadı..."
         fi
+    # Merge
     elif [ $command == "3" ]; then
         java -jar APKEditor.jar m -i $xapkfilename
+    # Refactor
     elif [ $command == "4" ]; then
-        # java -jar APKEditor.jar r -i $apkfilename
-
         if [ -e "$apkfilename" ]; then
             java -jar APKEditor.jar x -i $apkfilename
         elif [ ! -e "$apkfilename" ]; then
@@ -80,9 +78,8 @@ execute () {
         else
             echo "Uygulama bulunamadı..."
         fi
+    # Protect
     elif [ $command == "5" ]; then
-        # java -jar APKEditor.jar p -i $apkfilename
-
         if [ -e $app'_decompile_xml_out.apk' ]; then
             java -jar APKEditor.jar p -i $app'_decompile_xml_out.apk'
         elif [ ! -e $app'_decompile_xml_out.apk' ]; then
@@ -96,13 +93,16 @@ execute () {
         else
             echo "Uygulama bulunamadı..."
         fi
+    # Info
     elif [ $command == "6" ]; then
         java -jar APKEditor.jar info -v -resources -i $apkfilename
+    # Exit
     elif [ $command == "exit" ]; then
         exit
     fi
 }
 
+# Execute
 while :
 do
     execute
